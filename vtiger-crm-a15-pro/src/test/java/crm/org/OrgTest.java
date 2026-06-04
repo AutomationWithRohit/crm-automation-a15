@@ -6,7 +6,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import generic_utility.JavaUtility;
 import generic_utility.WebDriverUtility;
@@ -14,28 +15,21 @@ import generic_utility.WebDriverUtility;
 /**
  * Test Case: Create Organization in CRM Application
  * 
- * Author      : Piyush
- * Experience  : Automation Tester | 2 Years
- * Tool Stack  : Java + Selenium WebDriver
+ * Author : Piyush Experience : Automation Tester | 2 Years Tool Stack : Java +
+ * Selenium WebDriver
  * 
- * Objective:
- * Automate the end-to-end flow of creating a new Organization
- * in the CRM application and validate successful creation.
+ * Objective: Automate the end-to-end flow of creating a new Organization in the
+ * CRM application and validate successful creation.
  * 
- * Test Flow:
- * 1. Launch Browser
- * 2. Login to CRM Application
- * 3. Navigate to Organizations Module
- * 4. Create New Organization
- * 5. Validate Organization Creation
- * 6. Logout from Application
- * 7. Close Browser
+ * Test Flow: 1. Launch Browser 2. Login to CRM Application 3. Navigate to
+ * Organizations Module 4. Create New Organization 5. Validate Organization
+ * Creation 6. Logout from Application 7. Close Browser
  */
 
-public class CreateOrgTest {
+public class OrgTest {
 
-	public static void main(String[] args) throws InterruptedException {
-
+	@Test
+	public void creatOrgTest() throws InterruptedException {
 		// ==============================
 		// Browser Setup
 		// ==============================
@@ -90,28 +84,28 @@ public class CreateOrgTest {
 		// ==============================
 		String actualOrgName = driver.findElement(By.id("dtlview_Organization Name")).getText();
 
-		if (actualOrgName.equals(expectedOrgName)) {
+//		boolean status = actualOrgName.equals(expectedOrgName);
+//		Assert.assertTrue(status);
 
-			System.out.println("PASS : Organization created successfully");
-			System.out.println("Created Organization Name : " + actualOrgName);
+		Assert.assertEquals(actualOrgName, expectedOrgName);
 
-		} else {
-
-			System.out.println("FAIL : Organization creation failed");
-			System.out.println("Expected : " + expectedOrgName);
-			System.out.println("Actual   : " + actualOrgName);
-		}
+//		if (actualOrgName.equals(expectedOrgName)) {
+//			System.out.println("PASS : Organization created successfully");
+//			System.out.println("Created Organization Name : " + actualOrgName);
+//		} else {
+//			System.out.println("FAIL : Organization creation failed");
+//			System.out.println("Expected : " + expectedOrgName);
+//			System.out.println("Actual   : " + actualOrgName);
+//		}
 
 		// ==============================
 		// Logout from Application
 		// ==============================
-		WebElement profileIcon = driver.findElement(
-				By.cssSelector("img[src='themes/softed/images/user.PNG']"));
-
+		WebElement profileIcon = driver.findElement(By.cssSelector("img[src='themes/softed/images/user.PNG']"));
 
 //		hover on profile
 		WebDriverUtility wdUtil = new WebDriverUtility(driver);
-		wdUtil.hover( profileIcon);
+		wdUtil.hover(profileIcon);
 
 		driver.findElement(By.linkText("Sign Out")).click();
 
